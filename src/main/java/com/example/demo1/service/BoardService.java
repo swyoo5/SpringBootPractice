@@ -8,4 +8,8 @@ import java.util.List;
 public interface BoardService {
 //    게시물 리스트 가져옴
     List<BoardDTO> getList();
+    BoardDTO getOne(int bno);
+    void register(BoardDTO boardDTO);
+    void modify(BoardDTO boardDTO);
+    void remove(int bno);
 }
