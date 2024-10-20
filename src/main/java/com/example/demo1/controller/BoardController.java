@@ -20,8 +20,23 @@ public class BoardController {
 
 //    논리뷰 이름, db 테이블을 board/list로 보낸다(+ application.properties view setting)
     @GetMapping("/list")
-    private void list(Model model) {
-        model.addAttribute("boardList", boardService.getList());
+    public String list(
+            @RequestParam(value="page", defaultValue = "1") int page,
+            @RequestParam(value="keyword", required = false) String keyword,
+            @RequestParam(value="searchType", defaultValue = "title") String searchType,
+            Model model) {
+
+        if (keyword == null || keyword.trim().isEmpty()) {
+            keyword = "";
+        }
+
+        model.addAttribute("boardList", boardService.getList(page, keyword, searchType));
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("searchType", searchType);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", boardService.getTotalPages(keyword, searchType));
+
+        return "/board/list";  // JSP 파일의 논리적 이름
     }
 
     @GetMapping("/register")

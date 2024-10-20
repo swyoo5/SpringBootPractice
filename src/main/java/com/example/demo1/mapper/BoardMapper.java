@@ -8,6 +8,8 @@ import java.util.List;
 @Mapper
 public interface BoardMapper {
     List<BoardDTO> selectAll();
+    List<BoardDTO> selectByPageAndKeyword(int offset, int pageSize, String keyword, String searchType);
+    int countByKeyword(String keyword, String searchType);
     BoardDTO selectOne(int bno);
     void insert(BoardDTO board);
     void update(BoardDTO board);

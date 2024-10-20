@@ -17,7 +17,7 @@
                     <input type="text" class="form-control" placeholder="Title" name="title">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Example textarea</label>
+                    <label class="form-label">Content</label>
                     <textarea class="form-control" rows="3" name="content"></textarea>
                 </div>
                 <div class="mb-3">
@@ -34,6 +34,22 @@
                 document.querySelector(".btn-secondary").addEventListener("click", function (e) {
                     self.location = "/board/list";
                 })
+
+                function validateForm() {
+                    if (!document.getElementById('title').value) {
+                        alert('Title is required');
+                        return false;
+                    }
+                    if (!document.getElementById('content').value) {
+                        alert('Content is required');
+                        return false;
+                    }
+                    if (!document.getElementById('writer').value) {
+                        alert('Writer is required');
+                        return false;
+                    }
+                    return true;
+                }
             </script>
         </div>
     </div>

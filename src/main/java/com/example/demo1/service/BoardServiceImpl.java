@@ -14,10 +14,24 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService {
     private final BoardMapper boardMapper;
-    @Override
-    public List<BoardDTO> getList() {
+    private static final int PAGE_SIZE = 10;
+
+//    @Override
+//    public List<BoardDTO> getList() {
 //        boardMapper의 select 결과
-        return boardMapper.selectAll();
+//        return boardMapper.selectAll();
+//    }
+
+    @Override
+    public List<BoardDTO> getList(int page, String keyword, String searchType) {
+        int offset = (page - 1) * PAGE_SIZE;
+        return boardMapper.selectByPageAndKeyword(offset, PAGE_SIZE, keyword, searchType);
+    }
+
+    @Override
+    public int getTotalPages(String keyword, String searchType) {
+        int totalRecords = boardMapper.countByKeyword(keyword, searchType);
+        return (int) Math.ceil((double) totalRecords / PAGE_SIZE);
     }
 
     @Override
